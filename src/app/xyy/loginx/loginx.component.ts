@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginxComponent implements OnInit {
   lgForm:FormGroup;
-  constructor() { 
-  /*  this.formBuilder.group({
+  constructor( private formbuilder:FormBuilder) { 
+    this.lgForm =  this.formbuilder.group({
       userName:[''],
       password:['']
-    })*/
+    })
   }
 
   ngOnInit(): void {
