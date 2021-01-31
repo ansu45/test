@@ -1,0 +1,48 @@
+<p>product works!</p>
+<div class="container">
+  
+    <h1>Angular FormArray Example - ItSolutionStuff.com</h1>
+    
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      
+      <p>
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" formControlName="name" class="form-control">
+      </p>
+    
+      <table class="table table-bordered" formArrayName="childArray">
+        <tr>
+          <th colspan="4">Add Multiple Quantity:</th>
+          <th width="150px"><button type="button" (click)="NewChildGroup()" class="btn btn-primary">Add More</button></th>
+        </tr>
+        <tr *ngFor="let quantity of childArray().controls; let i=index" [formGroupName]="i">
+          <td>
+              ProductCode :
+              <input type="text" formControlName="ProductCode" class="form-control">
+          </td>
+          <td>
+              ModelCode:
+              <input type="text" formControlName="ModelCode" class="form-control">
+          </td>
+          <td>
+            Category:
+            <input type="text" formControlName="Category" class="form-control">
+        </td>
+        <td>
+          Price:
+          <input type="text" formControlName="Price" class="form-control">
+      </td>
+          <td>
+              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>
+          </td>
+        </tr>
+      </table>
+     
+      <button type="submit" class="btn btn-success">Submit</button>
+      
+    </form>
+      
+    <br/>
+    {{this.productForm.value | json}}
+    Entry from guistheader: {{sh}}
+  </div>

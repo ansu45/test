@@ -3,6 +3,7 @@ const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const USER_ROLE='auth_role';
 const USER_ROUTE='auth_route';
+const REFRESH_KEY='auth-Rtoken';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,12 @@ export class TokenstorageService {
   public saveRoute(userroute) {
     window.sessionStorage.removeItem(USER_ROUTE);
     window.sessionStorage.setItem(USER_ROUTE, JSON.stringify(userroute));;
+  }
+  public saveRefreshToken(refreshToken) {
+    window.sessionStorage.removeItem(REFRESH_KEY);
+    window.sessionStorage.setItem(REFRESH_KEY, JSON.stringify(refreshToken));
+  }
+  public getRefreshToken() {
+    return JSON.parse(sessionStorage.getItem(REFRESH_KEY));
   }
 }

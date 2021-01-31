@@ -1,4 +1,5 @@
 <div class="bg-primary"><span>{{ title }} app is running!</span>
 </div>
+<div *ngIf="userName!=''"><h3>Welcome: -{{userName}}</h3></div>
 <app-adminmenu></app-adminmenu>
 <router-outlet></router-outlet>
