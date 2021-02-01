@@ -12,12 +12,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminmenuComponent } from './layout/adminmenu/adminmenu.component';
 import { MypipefilterComponent } from './mypipefilter/mypipefilter.component';
+import { AuthComponent } from './interfaces/auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminmenuComponent,
-    MypipefilterComponent
+    MypipefilterComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

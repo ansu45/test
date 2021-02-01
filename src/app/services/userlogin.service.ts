@@ -1,3 +1,4 @@
+import { TokenstorageService } from './tokenstorage.service';
 import { ProductLevel } from './../Interfaces/product-level';
 import { RefreshToken } from './../Interfaces/refresh-token';
 import { AuthenticateResponse } from './../Interfaces/authenticate-response';
@@ -17,14 +18,18 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserloginService {
-
-  constructor(private httpClient:HttpClient) { }
+  
+  getrefreshtoken()
+  {
+    this.tokenservice.getRefreshToken();
+  }
+  constructor(private httpClient:HttpClient, private tokenservice: TokenstorageService) { }
   public loginAPI(credentials: AuthenticateRequest): Observable<AuthenticateResponse> {
     return this.httpClient.post<AuthenticateResponse>(`${AUTH_API2}/UserDetail`, credentials, httpOptions)
     .pipe(catchError(this.handleError));
   }
-  public refreshToken(refreshToken:RefreshToken): Observable<AuthenticateResponse> {
-    return this.httpClient.post<AuthenticateResponse>(`${AUTH_API2}/PostAuthenticateRefreshToken`, refreshToken, httpOptions)
+  public refreshToken(): Observable<AuthenticateResponse> {
+    return this.httpClient.post<AuthenticateResponse>(`${AUTH_API2}/PostAuthenticateRefreshToken`, this.getrefreshtoken(), httpOptions)
     .pipe(catchError(this.handleError));
   }
   public GetProductWithLevel(modelID:number): Observable<ProductLevel> {

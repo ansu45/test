@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { LoginserService } from './../../services/loginser.service';
 import { TokenstorageService } from './../../services/tokenstorage.service';
 import { AuthenticateResponse } from './../../Interfaces/authenticate-response';
@@ -6,7 +7,9 @@ import { AuthenticateRequest } from './../../Interfaces/authenticate-request';
 import { Component, OnInit } from '@angular/core';
 import {RefreshToken} from './../../Interfaces/refresh-token';
 import { FormGroup, FormBuilder, Validator, FormControl } from '@angular/forms';
-import { Subscriber } from 'rxjs';
+import { Subscriber, throwError } from 'rxjs';
+import { retryWhen,delay, scan } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-logina',
@@ -15,6 +18,7 @@ import { Subscriber } from 'rxjs';
 })
 export class LoginaComponent implements OnInit {
   lgForm: FormGroup;
+  apiurl=environment.AUTH_API2;
   authRequest: AuthenticateRequest ={Username:'', Password:''};
   refreshToken: RefreshToken={Token:''};
   constructor(private formbuilder: FormBuilder,
@@ -36,8 +40,24 @@ export class LoginaComponent implements OnInit {
    this.authRequest.Username =    this.lgForm.value.Username;
     this.authRequest.Password = this.lgForm.value.Password;
 
-    this.userLogin.loginAPI(this.authRequest).subscribe(res => {
+    this.userLogin.loginAPI(this.authRequest)
+    .pipe(
+      retryWhen(err=>err.pipe(delay(1000),scan((retrycount)=>
+      {if(retrycount>5) {throw err;}
+      else{retrycount=retrycount+1;
+      console.log('retrycount='+retrycount);
+      return retrycount; // this retur is used in scan
+    // return 1;
+      }
+    },0))
+    )
+    )
+    .subscribe(res => {
       this.ststorageMethod(res)
+    },
+    (error:any)=>{let cerror=error;
+      throwError(cerror);
+    
     });
   }
   ststorageMethod(oResponse: AuthenticateResponse) {
@@ -52,8 +72,8 @@ export class LoginaComponent implements OnInit {
   refreshtoken()
   {
   //  this.refreshToken.Token=this.tokenStorgeService.getRefreshToken();
-    this.userLogin.refreshToken(this.refreshToken={Token:this.tokenStorgeService.getRefreshToken()}).subscribe(
-      data=>{console.log(data.JwtToken, data.RefreshToken)}
-    );
+  //  this.userLogin.refreshToken(this.refreshToken={Token:this.tokenStorgeService.getRefreshToken()}).subscribe(
+   //   data=>{console.log(data.JwtToken, data.RefreshToken)}
+   // );
   }
 }

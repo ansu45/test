@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  AUTH_API2:'http://localhost:64887/api/UserToken',
+  userName: 'Rajo',
 };
 
 /*
