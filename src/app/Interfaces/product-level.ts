@@ -1,7 +1,7 @@
 import { Products } from './products';
 export interface ProductLevel {
-    modelID: number;
-    modelName: string;
-    rmodelId: string;
+    ModelID: number;
+    ModelName: string;
+    RmodelId: string;
     products: Products[];
 }

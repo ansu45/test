@@ -1,0 +1,43 @@
+<p>product-order works!</p>
+<form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
+    <div width="200px">
+    <select formControlName="productSel">
+        <option *ngFor="let food of lproduct" [ngValue]="food" selected="select Product">
+            {{food.ProductCode }}
+        </option>
+    </select>
+    <input type="text" formControlName="txtF">
+</div>
+<input type="hidden" formControlName="hdRmodelID" >
+    <div>
+        <table class="table table-bordered" formArrayName="childArray">
+            <tr>
+                <th colspan="5">Add Multiple Quantity:</th>
+            </tr>
+           <tr *ngFor="let quantity of childArray().controls; let i=index"  [formGroupName]="i">
+                 <!-- <tr *ngFor="let quantity of formProduct.get('childArray').controls ; let i=index"  [formGroupName]="i">-->
+                <td>
+                    ProductCode :
+                    <input type="text" formControlName="ProductCode{{i}}" class="form-control">
+                </td>
+                <td>
+                    ModelCode:
+                    <input type="text" formControlName="ModelCode{{i}}" class="form-control">
+                </td>
+                <td>
+                    Category:
+                    <input type="text" formControlName="Category{{i}}" class="form-control">
+                </td>
+                <td>
+                    Price:
+                    <input type="text" formControlName="Price{{i}}" class="form-control">
+                </td>
+                <td>
+                    Quantity:
+                    <input type="text" formControlName="Quantity{{i}}" class="form-control">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>

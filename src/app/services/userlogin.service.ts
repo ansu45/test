@@ -19,14 +19,16 @@ const httpOptions = {
 })
 export class UserloginService {
   
-  getrefreshtoken()
+  getrefreshtoken(): RefreshToken
   {
-    this.tokenservice.getRefreshToken();
+    let refreshToken:RefreshToken=({Token:null});
+   refreshToken.Token= this.tokenservice.getRefreshToken();
+   return refreshToken;
   }
   constructor(private httpClient:HttpClient, private tokenservice: TokenstorageService) { }
   public loginAPI(credentials: AuthenticateRequest): Observable<AuthenticateResponse> {
     return this.httpClient.post<AuthenticateResponse>(`${AUTH_API2}/UserDetail`, credentials, httpOptions)
-    .pipe(catchError(this.handleError));
+    //.pipe(catchError(this.handleError));
   }
   public refreshToken(): Observable<AuthenticateResponse> {
     return this.httpClient.post<AuthenticateResponse>(`${AUTH_API2}/PostAuthenticateRefreshToken`, this.getrefreshtoken(), httpOptions)
@@ -35,6 +37,10 @@ export class UserloginService {
   public GetProductWithLevel(modelID:number): Observable<ProductLevel> {
     return this.httpClient.get<ProductLevel>(`${AUTH_APIProd}/GetProductLevel/${modelID}`, httpOptions)
     .pipe(catchError(this.handleError));
+  }
+  public SaveProducts(plevel: ProductLevel): Observable<AuthenticateResponse> {
+    return this.httpClient.post<AuthenticateResponse>(`${AUTH_APIProd}/SaveProducts`, plevel, httpOptions)
+    //.pipe(catchError(this.handleError));
   }
   private handleError(error) {
     let errorMessage = '';
@@ -45,7 +51,7 @@ export class UserloginService {
         // server-side error
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
+    console.log('service - ' +errorMessage);
+    return throwError('service - ' +errorMessage);
 }
 }

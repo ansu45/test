@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginxComponent implements OnInit {
   lgForm:FormGroup;
+  xx:boolean=true;
   constructor( private formbuilder:FormBuilder) { 
     this.lgForm =  this.formbuilder.group({
       userName:[''],
@@ -20,5 +21,8 @@ export class LoginxComponent implements OnInit {
   }
   fSubmit()
   {}
-
+  reset()
+  {
+this.xx=false;
+  }
 }

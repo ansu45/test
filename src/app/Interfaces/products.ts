@@ -1,9 +1,9 @@
 export interface Products {
     id:number;
-    productCode:string;
-    model:string;
+    ProductCode:string;
+    Model:string;
     category:string;
-    marketName:string;
+    MarketName:string;
     price:string;
     isEOL:boolean;
 

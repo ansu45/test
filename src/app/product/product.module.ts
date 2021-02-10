@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductComponent } from './product.component';
+import { ProductOrderComponent } from './product-order/product-order.component';
 
 
 @NgModule({
-  declarations: [ProductComponent],
+  declarations: [ProductComponent, ProductOrderComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,

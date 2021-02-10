@@ -13,16 +13,34 @@ import { Products} from './../Interfaces/products';
 export class ProductComponent implements OnInit {
   productForm: FormGroup;
   sh:string;
+  selectedValue: string;
+  lproduct:Products[];
+  //=({id:'',
+  //  productcode:null,
+  //  model:null,
+ //   category:null,
+ //   marketName:null
+ // })
  
-  constructor(private formBuilder: FormBuilder, private userlogin: UserloginService) {  this.productForm=this.formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private userlogin: UserloginService) { 
+   try{
+    this.productForm=this.formBuilder.group({
     name:[''],
-    childArray:this.formBuilder.array([])
+    childArray:this.formBuilder.array([]),
+    productList:['']
   });
-  this.userlogin.GetProductWithLevel(1).subscribe(prodLevel=>{this.myformload(prodLevel)
-  });}
+  this.userlogin.GetProductWithLevel(1).subscribe(prodLevel=>{
+    this.myformload(prodLevel);
+this.lproduct=prodLevel.products;
+  });
+}
+catch( error)
+{ console.error();
+}
+  }
   myformload(myPLevel:ProductLevel)
   {this.productForm.patchValue(
-    {name:myPLevel.modelName  } )
+    {name:myPLevel.ModelName  } )
   console.log(myPLevel);
   for(var x in myPLevel.products )
   this.childArray().push(this.ChildGroup(myPLevel.products[x]));
@@ -32,8 +50,8 @@ export class ProductComponent implements OnInit {
   }
   ChildGroup(cproduct:Products): FormGroup {
     return this.formBuilder.group({
-      ProductCode:cproduct.productCode ,
-      ModelCode:cproduct.model,
+      ProductCode:cproduct.ProductCode ,
+      ModelCode:cproduct.Model,
       Category:cproduct.category,
       Price:cproduct.price
     })
@@ -57,4 +75,7 @@ NewChildGroup() {
     Price:''
   }));
 }
+
+Myselection()
+{alert ('xx');}
 }

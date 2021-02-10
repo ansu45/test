@@ -1,1 +1,25 @@
 <p>auth works!</p>
+<form [formGroup]="authForm" (ngSubmit)="onsubmit()">
+<div  class="col-md-5 align-self-center">
+    <div class="form-group input-group mb-3">
+
+        <span class="input-group-text">
+            <i class="fa fa-envelop"></i>
+        </span>
+        <input type="text" class="form-control" formControlName="email" placeholder="Email">
+        <small *ngIf="!authForm.get('email').valid&& authForm.get('email').touched" class="form-text w-100 text-danger">Please Enter text </small>
+    </div>
+    <div class="form-group input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input type="text" class="form-control" formControlName="password" placeholder="Password">
+        <small *ngIf="!authForm.get('password').valid&& authForm.get('password').touched" class="form-text w-100 text-danger">Please Enter Password </small>
+    </div>
+    {{accoutflag}}
+    <div class="form-group">
+        <button type="submit" class="btn-block btn-outline-primary bt" >Sigh In </button>
+    </div>
+    <p>{{accoutflag? 'don t have account?':'already account'}} 
+        <a href="#">{{accoutflag? 'Create One?':'Sign In'}}</a> </p>
+    <p><a href="#">froget password</a></p>
+</div>
+</form>

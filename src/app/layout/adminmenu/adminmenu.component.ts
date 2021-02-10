@@ -1,3 +1,4 @@
+import { TokenstorageService } from './../../services/tokenstorage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminmenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tokenStorageService: TokenstorageService) { }
 
   ngOnInit(): void {
   }
-  logout()
-  {}
+  logout() {
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
 }

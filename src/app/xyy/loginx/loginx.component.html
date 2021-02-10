@@ -1,18 +1,23 @@
 <p>loginx works!</p>
-<form [formGroup]="lgForm" (ngSubmit)="fSubmit()">
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" formControlName="userName"
-            aria-describedby="emailHelp">
-        <div id="emailHelp" *ngIf="lgForm.get('userName').touched " class="form-text">email is not valid.</div>
+<div class="container">
+    <form [formGroup]="lgForm" (ngSubmit)="fSubmit()">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" formControlName="userName"
+                aria-describedby="emailHelp">
+            <div id="emailHelp" *ngIf="lgForm.get('userName').touched " class="form-text">email is not valid.</div>
 
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="text" class="form-control" id="exampleInputPassword11" formControlName="password">
-        <!-- <span *ngIf="lgForm.get('password').touched&& lgForm.get('password').hasError('maxlength')">Email required</span>-->
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="button" class="btn bg-primary">Reset</button>
-</form>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="text" class="form-control" id="exampleInputPassword11" formControlName="password">
+            <!-- <span *ngIf="lgForm.get('password').touched&& lgForm.get('password').hasError('maxlength')">Email required</span>-->
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn bg-primary" (click)="reset()">Reset</button>
+        <div *ngIf="!xx">
+            <p>my Name </p>
+        </div>
+    </form>
+</div>
